@@ -30,13 +30,12 @@
     <v-divider></v-divider>
 
     <v-list nav dense>
-      <v-list-item to="/" link>
+      <v-list-item link to="/">
         <v-list-item-icon>
           <v-icon>mdi-home</v-icon>
         </v-list-item-icon>
         <v-list-item-title>Home</v-list-item-title>
       </v-list-item>
-
       <v-list-item link @click.prevent="clear">
         <v-list-item-icon>
           <v-icon>mdi-logout</v-icon>
@@ -49,7 +48,7 @@
 
 <script>
 export default {
-  name: "User",
+  name: "SidebarMentor",
   props: ["user"],
   methods: {
     clear() {
@@ -60,6 +59,7 @@ export default {
       localStorage.removeItem("access_token");
       localStorage.removeItem("role");
       this.$store.dispatch("clearUser");
+      this.$store.dispatch("setLogin", { login: false });
       this.$router.push("/login");
     },
   },

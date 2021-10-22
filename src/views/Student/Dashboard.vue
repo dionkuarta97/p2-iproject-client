@@ -3,26 +3,21 @@
     <sidebar-student :user="user" />
     <v-main app>
       <v-container fluid>
-        <button @click="toTask" class="btn btn-primary">See Your Task</button>
+        <list-task />
       </v-container>
     </v-main>
   </div>
 </template>
 
 <script>
+import ListTask from "../../components/Student/ListTask.vue";
 import SidebarStudent from "../../components/Student/SidebarStudent.vue";
 
 export default {
-  components: { SidebarStudent },
+  components: { SidebarStudent, ListTask },
   name: "DashboardStudent",
   data() {
-    return {
-      mp3: "/demo/example.mp3",
-      showRecorder: true,
-      headers: {
-        "X-Custom-Header": "some data",
-      },
-    };
+    return {};
   },
   methods: {
     toTask() {

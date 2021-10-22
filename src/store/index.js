@@ -116,6 +116,42 @@ export default new Vuex.Store({
       });
       return result.data;
     },
+    async getClassMentor(context, payload) {
+      let params = {};
+      if (payload) {
+        params = {
+          page: payload.page,
+          name: payload.name,
+        };
+      }
+      const result = await apiServer({
+        method: "GET",
+        url: "/mentor",
+        headers: {
+          access_token: token,
+        },
+        params,
+      });
+      return result.data;
+    },
+    async getStudentMentor(context, payload) {
+      let params = {};
+      if (payload) {
+        params = {
+          page: payload.page,
+          name: payload.name,
+        };
+      }
+      const result = await apiServer({
+        method: "GET",
+        url: "/mentor/student/" + payload.id,
+        headers: {
+          access_token: token,
+        },
+        params,
+      });
+      return result.data;
+    },
     async getClass(context, payload) {
       let params = {};
       if (payload) {
@@ -127,6 +163,24 @@ export default new Vuex.Store({
       const result = await apiServer({
         method: "GET",
         url: "/admin/class",
+        headers: {
+          access_token: token,
+        },
+        params,
+      });
+      return result.data;
+    },
+    async getTaskMentor(context, payload) {
+      let params = {};
+      if (payload) {
+        params = {
+          page: payload.page,
+          name: payload.name,
+        };
+      }
+      const result = await apiServer({
+        method: "GET",
+        url: "/mentor/task/" + payload.id,
         headers: {
           access_token: token,
         },
@@ -183,6 +237,17 @@ export default new Vuex.Store({
       });
       return result;
     },
+    async addTask(context, payload) {
+      const result = await apiServer({
+        method: "post",
+        url: "/mentor/task",
+        headers: {
+          access_token: token,
+        },
+        data: payload,
+      });
+      return result;
+    },
     async addStudentClass(context, payload) {
       const result = await apiServer({
         method: "post",
@@ -216,13 +281,21 @@ export default new Vuex.Store({
       });
       return result;
     },
-    async getTask(context) {
+    async getTask(context, payload) {
+      let params = {};
+      if (payload) {
+        params = {
+          page: payload.page,
+          name: payload.name,
+        };
+      }
       const result = await apiServer({
         method: "GET",
         url: "/student/task",
         headers: {
           access_token: token,
         },
+        params,
       });
       const task = result.data.task;
       context.commit("SET_TASK", { task });

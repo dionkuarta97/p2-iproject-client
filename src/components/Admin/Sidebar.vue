@@ -54,6 +54,12 @@
         </v-list-item-icon>
         <v-list-item-title>Class</v-list-item-title>
       </v-list-item>
+      <v-list-item link @click.prevent="clear">
+        <v-list-item-icon>
+          <v-icon>mdi-logout</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>Logout</v-list-item-title>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -69,6 +75,7 @@ export default {
         icon: "success",
       });
       localStorage.removeItem("access_token");
+      localStorage.removeItem("role");
       this.$store.dispatch("clearUser");
       this.$store.dispatch("setLogin", { login: false });
       this.$router.push("/login");

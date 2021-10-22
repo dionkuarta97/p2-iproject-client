@@ -262,7 +262,6 @@ export default {
       this.pageNum = pageNum;
     },
     getStudents(page, name) {
-      console.log(name);
       this.$store
         .dispatch("getStudents", {
           page: page,

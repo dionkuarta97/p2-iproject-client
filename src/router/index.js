@@ -4,7 +4,6 @@ import Login from "../views/Login.vue";
 import DashboardMentor from "../views/Mentor/Dashboard.vue";
 import DashboardStudent from "../views/Student/Dashboard.vue";
 import Mentor from "../views/Admin/Mentor.vue";
-import apiServer from "../apis/apiServer";
 
 Vue.use(VueRouter);
 
@@ -50,6 +49,20 @@ const routes = [
     component: DashboardMentor,
   },
   {
+    path: "/mentor/student/:id",
+    name: "StudentMentor",
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "../views/Mentor/StudentMentor.vue"
+      ),
+  },
+  {
+    path: "/mentor/task/:id",
+    name: "TaskMentor",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Mentor/TaskMentor.vue"),
+  },
+  {
     path: "/student",
     name: "DashboardStudent",
     component: DashboardStudent,
@@ -77,6 +90,8 @@ const router = new VueRouter({
 router.beforeEach(async (to, from, next) => {
   try {
     const token = localStorage.getItem("access_token");
+    const role = localStorage.getItem("role");
+
     if (to.name === "Login" && token) {
       next({ name: "Dashboard" });
     } else if (to.name !== "Login" && !token) {
@@ -84,26 +99,24 @@ router.beforeEach(async (to, from, next) => {
     } else {
       next();
     }
-    const result = await apiServer({
-      method: "GET",
-      url: "/req_user",
-      headers: {
-        access_token: token,
-      },
-    });
-    const user = result.data.user;
+
     if (
       (to.name === "Dashboard" ||
         to.name === "Mentor" ||
         to.name === "Student" ||
         to.name === "Class" ||
         to.name === "StudentClass") &&
-      user.role !== "admin"
+      role !== "admin"
     ) {
       next({ name: "DashboardMentor" });
-    } else if (to.name === "DashboardMentor" && user.role !== "mentor") {
+    } else if (
+      (to.name === "DashboardMentor" ||
+        to.name === "StudentMentor" ||
+        to.name === "TaskMentor") &&
+      role !== "mentor"
+    ) {
       next({ name: "DashboardStudent" });
-    } else if (to.name === "DashboardStudent" && user.role !== "student") {
+    } else if (to.name === "DashboardStudent" && role !== "student") {
       next({ name: "Dashboard" });
     }
   } catch (err) {

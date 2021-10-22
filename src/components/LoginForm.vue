@@ -50,7 +50,9 @@ export default {
         .dispatch("login", data)
         .then((response) => {
           const access_token = response.data.access_token;
+          const role = response.data.role;
           localStorage.setItem("access_token", access_token);
+          localStorage.setItem("role", role);
           this.$store.dispatch("reqUser", access_token);
           this.$store.dispatch("setLogin", { login: true });
           this.$swal({

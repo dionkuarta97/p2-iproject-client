@@ -3,7 +3,7 @@
     <sidebar-mentor :user="user" />
     <v-main app>
       <v-container fluid>
-        <table-class-mentor />
+        <table-task />
       </v-container>
     </v-main>
   </div>
@@ -11,10 +11,10 @@
 
 <script>
 import SidebarMentor from "../../components/Mentor/SidebarMentor.vue";
-import TableClassMentor from "../../components/Mentor/TableClassMentor.vue";
+import TableTask from "../../components/Mentor/TableTask.vue";
 
 export default {
-  components: { SidebarMentor, TableClassMentor },
+  components: { SidebarMentor, TableTask },
   name: "DashboardMentor",
   data() {
     return {};
