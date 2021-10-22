@@ -16,20 +16,13 @@
             <v-list-item-content>
               <div class="text-overline mb-4">Total Mentor</div>
               <v-list-item-title class="text-h5 mb-1">
-                Headline 5
+                {{ totalMentor }}
               </v-list-item-title>
-              <v-list-item-subtitle
-                >Greyhound divisely hello coldly
-                fonwderfully</v-list-item-subtitle
-              >
             </v-list-item-content>
             <v-list-item-avatar tile size="80" color="light">
               <v-icon x-large>mdi-account-multiple</v-icon>
             </v-list-item-avatar>
           </v-list-item>
-          <v-card-actions>
-            <v-btn outlined rounded text> Detail </v-btn>
-          </v-card-actions>
         </v-card>
       </div>
       <div class="col-md-6">
@@ -38,12 +31,8 @@
             <v-list-item-content>
               <div class="text-overline mb-4">TOTAL STUDENT</div>
               <v-list-item-title class="text-h5 mb-1">
-                Headline 5
+                {{ totalStudent }}
               </v-list-item-title>
-              <v-list-item-subtitle
-                >Greyhound divisely hello coldly
-                fonwderfully</v-list-item-subtitle
-              >
             </v-list-item-content>
             <v-list-item-avatar tile size="80" color="grey">
               <v-icon x-large
@@ -51,9 +40,6 @@
               ></v-list-item-avatar
             >
           </v-list-item>
-          <v-card-actions>
-            <v-btn outlined rounded text> Detail </v-btn>
-          </v-card-actions>
         </v-card>
       </div>
     </div>
@@ -63,6 +49,7 @@
 <script>
 export default {
   name: "DashboardCard",
+  props: ["totalMentor", "totalStudent"],
 };
 </script>
 

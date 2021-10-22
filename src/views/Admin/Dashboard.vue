@@ -3,7 +3,10 @@
     <sidebar :user="user" />
     <v-main app>
       <v-container fluid>
-        <dashboard-card />
+        <dashboard-card
+          :totalMentor="totalMentor"
+          :totalStudent="totalStudent"
+        />
       </v-container>
     </v-main>
   </div>
@@ -17,7 +20,10 @@ export default {
   components: { Sidebar, DashboardCard },
   name: "Dashboard",
   data() {
-    return {};
+    return {
+      totalMentor: "",
+      totalStudent: "",
+    };
   },
   methods: {},
   computed: {
@@ -27,6 +33,12 @@ export default {
   },
   created() {
     this.$store.dispatch("reqUser");
+    this.$store.dispatch("getMentors").then((data) => {
+      this.totalMentor = data.totalItems;
+    });
+    this.$store.dispatch("getStudents").then((data) => {
+      this.totalStudent = data.totalItems;
+    });
   },
 };
 </script>

@@ -116,10 +116,88 @@ export default new Vuex.Store({
       });
       return result.data;
     },
+    async getClass(context, payload) {
+      let params = {};
+      if (payload) {
+        params = {
+          page: payload.page,
+          name: payload.name,
+        };
+      }
+      const result = await apiServer({
+        method: "GET",
+        url: "/admin/class",
+        headers: {
+          access_token: token,
+        },
+        params,
+      });
+      return result.data;
+    },
+    async getStudentClass(context, payload) {
+      let params = {};
+      if (payload) {
+        params = {
+          page: payload.page,
+          name: payload.name,
+        };
+      }
+      const result = await apiServer({
+        method: "GET",
+        url: "/admin/student_class/" + payload.id,
+        headers: {
+          access_token: token,
+        },
+        params,
+      });
+      return result.data;
+    },
+    async getSelectMentor() {
+      const result = await apiServer({
+        method: "GET",
+        url: "/admin/select_mentor",
+        headers: {
+          access_token: token,
+        },
+      });
+      return result.data;
+    },
+    async getSelectStudent(context, payload) {
+      const result = await apiServer({
+        method: "GET",
+        url: "/admin/select_student/" + payload.id,
+        headers: {
+          access_token: token,
+        },
+      });
+      return result.data;
+    },
     async addMentors(context, payload) {
       const result = await apiServer({
         method: "post",
         url: "/admin/mentor",
+        headers: {
+          access_token: token,
+        },
+        data: payload,
+      });
+      return result;
+    },
+    async addStudentClass(context, payload) {
+      const result = await apiServer({
+        method: "post",
+        url: "/admin/student_class",
+        headers: {
+          access_token: token,
+        },
+        data: payload,
+      });
+      return result;
+    },
+    async addClass(context, payload) {
+      const result = await apiServer({
+        method: "post",
+        url: "/admin/class",
         headers: {
           access_token: token,
         },
@@ -166,6 +244,26 @@ export default new Vuex.Store({
       const result = await apiServer({
         method: "DELETE",
         url: "/admin/mentor/" + payload.id,
+        headers: {
+          access_token: token,
+        },
+      });
+      return result.data.message;
+    },
+    async deleteClass(context, payload) {
+      const result = await apiServer({
+        method: "DELETE",
+        url: "/admin/class/" + payload.id,
+        headers: {
+          access_token: token,
+        },
+      });
+      return result.data.message;
+    },
+    async deleteStudentClass(context, payload) {
+      const result = await apiServer({
+        method: "DELETE",
+        url: "/admin/student_class/" + payload.id,
         headers: {
           access_token: token,
         },

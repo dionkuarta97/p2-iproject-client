@@ -33,6 +33,18 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Admin/Student.vue"),
   },
   {
+    path: "/admin/class",
+    name: "Class",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Admin/Class.vue"),
+  },
+  {
+    path: "/admin/studentClass/:ClassId/:GradeId",
+    name: "StudentClass",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Admin/StudentClass.vue"),
+  },
+  {
     path: "/mentor",
     name: "DashboardMentor",
     component: DashboardMentor,
@@ -83,7 +95,9 @@ router.beforeEach(async (to, from, next) => {
     if (
       (to.name === "Dashboard" ||
         to.name === "Mentor" ||
-        to.name === "Student") &&
+        to.name === "Student" ||
+        to.name === "Class" ||
+        to.name === "StudentClass") &&
       user.role !== "admin"
     ) {
       next({ name: "DashboardMentor" });
